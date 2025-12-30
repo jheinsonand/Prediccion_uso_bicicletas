@@ -1,0 +1,10 @@
+pandas
+numpy
+scikit-learn
+matplotlib
+seaborn
+prefect==2.*
+mlflow
+sqlalchemy
+python-dotenv
+joblib
