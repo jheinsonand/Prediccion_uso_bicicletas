@@ -1,5 +1,3 @@
-# src/train.py
-
 import sys
 sys.path.append('../src')
 
@@ -27,9 +25,9 @@ def get_dataset():
     df = df.set_index("date_time").sort_index()
 
     df = add_time_features(df)
-    df = add_lag_features(df, target_col="users")
+    df = add_lag_features(df, target_col="total_users")
 
-    target = "users"
+    target = "total_users"
     feature_cols = [c for c in df.columns if c != target]
 
     X = df[feature_cols]
@@ -68,26 +66,3 @@ def train_model():
     print(f"Modelo guardado en {MODEL_PATH} con RMSE {best_rmse:.2f}")
 
     return best_model, best_rmse
-
-import mlflow
-import mlflow.sklearn
-
-def train_model_with_mlflow():
-    mlflow.set_experiment("bike_sharing_forecast")
-
-    with mlflow.start_run():
-        model, rmse = train_model()
-
-        mlflow.log_params({
-            "model": "RandomForest",
-            "n_estimators": 200,
-            "max_depth": 10,
-            "cv": 3
-        })
-
-        mlflow.log_metric("rmse", rmse)
-        mlflow.sklearn.log_model(model, "random_forest_model")
-
-
-if __name__ == "__main__":
-    train_model_with_mlflow()
