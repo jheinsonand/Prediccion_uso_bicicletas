@@ -15,10 +15,6 @@
 # if __name__ == "__main__":
 #     train_model_with_mlflow()
 
-# import os, mlflow
-# print("CWD:", os.getcwd())
-# print("Tracking URI:", mlflow.get_tracking_uri())
-
 import sys
 from pathlib import Path
 
@@ -37,10 +33,11 @@ def train_model_with_mlflow():
     mlflow.set_tracking_uri(mlruns_dir.as_uri())
     mlflow.set_experiment("bike_sharing_forecast")
 
-    with mlflow.start_run():
+    with mlflow.start_run(run_name="random_forest_run"):
         model, rmse = train_model()
         mlflow.log_metric("rmse", rmse)
         mlflow.sklearn.log_model(model, "random_forest_model")
+        mlflow.set_tag({"developer":"Jheinson_Marin", "model":"random_forest"})
 
 if __name__ == "__main__":
     train_model_with_mlflow()
