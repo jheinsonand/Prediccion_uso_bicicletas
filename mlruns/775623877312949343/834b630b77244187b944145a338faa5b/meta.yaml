@@ -1,0 +1,15 @@
+artifact_uri: file:///C:/Users/marin/OneDrive/Documentos/Jheinson/Portafolio/Prediccion_uso_bicicletas/mlruns/775623877312949343/834b630b77244187b944145a338faa5b/artifacts
+end_time: 1774488673864
+entry_point_name: ''
+experiment_id: '775623877312949343'
+lifecycle_stage: active
+run_id: 834b630b77244187b944145a338faa5b
+run_name: random_forest_run
+run_uuid: 834b630b77244187b944145a338faa5b
+source_name: ''
+source_type: 4
+source_version: ''
+start_time: 1774488673618
+status: 4
+tags: []
+user_id: marin

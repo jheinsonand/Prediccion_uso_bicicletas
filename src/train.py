@@ -25,9 +25,9 @@ def get_dataset():
     df = df.set_index("date_time").sort_index()
 
     df = add_time_features(df)
-    df = add_lag_features(df, target_col="total_users")
+    df = add_lag_features(df, target_col="users")
 
-    target = "total_users"
+    target = "users"
     feature_cols = [c for c in df.columns if c != target]
 
     X = df[feature_cols]
