@@ -6,6 +6,11 @@ def add_time_features(df: pd.DataFrame) -> pd.DataFrame:
     df["dayofweek"] = df.index.dayofweek
     df["month"] = df.index.month
     df["is_weekend"] = df["dayofweek"].isin([5, 6]).astype(int)
+    
+    # Eliminar columnas de texto que no puede procesar el modelo
+    cols_to_drop = df.select_dtypes(include=["object"]).columns.tolist()
+    df = df.drop(columns=cols_to_drop)
+    
     return df
 
 def add_lag_features(df: pd.DataFrame, target_col: str = "total_users", lags=(1,2,3,24)):

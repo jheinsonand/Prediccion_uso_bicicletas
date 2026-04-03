@@ -6,8 +6,8 @@ import joblib
 import numpy as np
 import pandas as pd
 from sklearn.ensemble import RandomForestRegressor
-from sklearn.metrics import mean_squared_error
 from sklearn.model_selection import TimeSeriesSplit
+from sklearn.metrics import root_mean_squared_error
 
 from database import read_data_sql
 from features import add_time_features, add_lag_features
@@ -55,7 +55,7 @@ def train_model():
         )
         model.fit(X_train, y_train)
         y_pred = model.predict(X_val)
-        rmse = mean_squared_error(y_val, y_pred, squared=False)
+        rmse = root_mean_squared_error(y_val, y_pred)
         print(f"Fold RMSE: {rmse:.2f}")
 
         if rmse < best_rmse:
