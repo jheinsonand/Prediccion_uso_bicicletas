@@ -7,6 +7,7 @@ import joblib
 import pandas as pd
 from database import read_data_sql
 from features import add_time_features, add_lag_features
+from database import create_connection
 
 BASE_DIR = Path(__file__).resolve().parents[1]  # sube hasta la raíz del proyecto
 MODEL_PATH = BASE_DIR / "models" / "model_latest.pkl"
@@ -40,6 +41,12 @@ def generate_forecast(horizon_hours=168):
     os.makedirs(os.path.dirname(PREDICTIONS_PATH), exist_ok=True)
     pred_df.to_csv(PREDICTIONS_PATH, index=False)
     print(f"Predicciones guardadas en {PREDICTIONS_PATH}")
+
+    # Al final de generate_forecast(), después de guardar el CSV:
+    conn = create_connection()
+    pred_df.to_sql("predictions", conn, if_exists="replace", index=False)
+    conn.close()
+    print("Predicciones guardadas también en SQLite(carpeta data/processed).")
 
     return pred_df
 
