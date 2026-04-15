@@ -1,3 +1,4 @@
+#Ejecutable en consola con python src/EjemploSQL.py
 from database import load_raw_from_github_to_db, read_data_sql
 
 # Solo la primera vez:
