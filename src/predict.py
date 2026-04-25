@@ -5,9 +5,8 @@ sys.path.insert(0, str(Path(__file__).resolve().parent.parent))
 import os
 import joblib
 import pandas as pd
-from database import read_data_sql
-from features import add_time_features, add_lag_features
-from database import create_connection
+from database import read_data_sql, create_connection
+from features import add_time_features, add_lag_features 
 
 BASE_DIR = Path(__file__).resolve().parents[1]  # sube hasta la raíz del proyecto
 MODEL_PATH = BASE_DIR / "models" / "model_latest.pkl"
@@ -29,7 +28,7 @@ def generate_forecast(horizon_hours=168):
 
     model = joblib.load(MODEL_PATH)
 
-    # Para simplificar: predecimos sobre el último día disponible
+    # Para simplificar: predecimos sobre la ultima semana disponible
     X = df.iloc[-horizon_hours:][[c for c in df.columns if c != "users"]]
     y_hat = model.predict(X)
 
